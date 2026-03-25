@@ -1,0 +1,27 @@
+services:
+  mock_spring:
+    build:
+      context: .
+      dockerfile: services/mock_spring/Dockerfile
+    container_name: mock_spring_api
+    ports:
+      - "${MOCK_HOST_PORT:-8001}:8001"
+    volumes:
+      - ./data:/app/data
+
+  agent:
+    build:
+      context: .
+      dockerfile: services/agent/Dockerfile
+    container_name: fastapi_agent
+    depends_on:
+      - mock_spring
+    environment:
+      MOCK_API_BASE_URL: http://mock_spring:8001
+      AGENT_TOKEN: ${AGENT_TOKEN:-agent_admin_token}
+      INTENT_MODE: ${INTENT_MODE:-rule}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-2.0-flash}
+      GEMINI_BASE_URL: ${GEMINI_BASE_URL:-https://generativelanguage.googleapis.com/v1beta}
+    ports:
+      - "${AGENT_HOST_PORT:-8000}:8000"
