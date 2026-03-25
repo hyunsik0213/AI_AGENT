@@ -1,0 +1,7 @@
+[
+  {"id": 1, "name": "김민수", "status": "active", "role": "member"},
+  {"id": 2, "name": "박지훈", "status": "active", "role": "member"},
+  {"id": 3, "name": "이서연", "status": "active", "role": "operator"},
+  {"id": 4, "name": "최현우", "status": "active", "role": "member"},
+  {"id": 5, "name": "정하은", "status": "removed", "role": "member"}
+]
